@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.BookDao">
+    <insert id="addBook">
+        insert into tb_book(bookname,number,price,author)values (#{bookName},#{number},#{price},#{author})
+    </insert>
+    <update id="updBook" parameterType="com.ssm.pojo.Book">
+        update tb_book set bookname=#{bookName},number=#{number},price=#{price},author=#{author} where bookId =#{bookId}
+    </update>
+    <delete id="delBook" parameterType="integer">
+        delete from  tb_book where bookId=#{id}
+        </delete>
+    <select id="findAllBook" resultMap="Book">
+        select * from tb_book
+    </select>
+    <select id="findBookByName"  resultMap="Book">
+        select * from tb_book where bookname=#{bookName}
+    </select>
+    <select id="findBookById" resultType="com.ssm.pojo.Book">
+        select * from tb_book where bookId=#{id}
+    </select>
+
+    <resultMap id="Book" type="com.ssm.pojo.Book">
+        <id column="bookId" property="bookId"/>
+        <result column="bookname" property="bookName"/>
+        <result column="number" property="number"/>
+        <result column="price" property="price"/>
+        <result column="author" property="author"/>
+    </resultMap>
+
+
+
+</mapper>

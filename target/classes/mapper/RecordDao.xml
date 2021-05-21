@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.RecordDao">
+
+
+    <select id="findAllRecord" resultMap="Record">
+      SELECT tb_reader.username,tb_book.bookname,tb_record.number,tb_record.recordId
+        FROM tb_record
+        JOIN tb_reader ON tb_reader.readerId=tb_record.readerId
+        JOIN tb_book ON tb_book.bookId=tb_record.bookId
+    </select>
+    <select id="findByReader" resultMap="Record">
+             SELECT tb_reader.username,tb_book.bookname,tb_record.number,tb_record.recordId
+        FROM tb_record
+        JOIN tb_reader ON tb_reader.readerId=tb_record.readerId
+        JOIN tb_book ON tb_book.bookId=tb_record.bookId
+        where tb_reader.username=#{readerName}
+    </select>
+    <select id="findByBook" resultMap="Record">
+                   SELECT tb_reader.username,tb_book.bookname,tb_record.number,tb_record.recordId
+        FROM tb_record
+        JOIN tb_reader ON tb_reader.readerId=tb_record.readerId
+        JOIN tb_book ON tb_book.bookId=tb_record.bookId
+        where tb_book.bookname=#{bookName}
+    </select>
+
+    <resultMap id="Record" type="com.ssm.pojo.Record">
+        <id column="recordId" property="recordId"/>
+        <result column="username" property="readerName"/>
+        <result column="bookname" property="bookName"/>
+        <result column="number" property="number"/>
+    </resultMap>
+
+
+
+</mapper>
